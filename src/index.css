@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+        @apply box-border;
+    }
+
+    html {
+        font-size: 10px;
+        font-family: inherit;
+    }
+
+    body {
+        margin: 0;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 1.8rem;
+        color: #0f1e29;
+        background-color: #fafafa;
+    }
+
+    input[type='number'] {
+        font-size: 14px !important;
+    }
+
+    input[type='number']::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type='number']:focus {
+        @apply outline-none;
+    }
+
+    .input-base {
+        @apply flex items-stretch text-base overflow-hidden w-full
+        border-[1px] border-solid border-[#cfd2d4] rounded-[0.4rem];
+    }
+
+    .input-base:hover {
+        @apply border-[#3f81fe];
+    }
+
+    .input-base:focus-within {
+        @apply border-[1px] border-solid border-[#3f81fe] relative
+        shadow-[0_0_0_1px_#3f81fe];
+    }
+
+    img,
+    svg {
+        @apply align-middle;
+    }
+
+    svg {
+        @apply overflow-hidden;
+    }
+
+    .button-main {
+        @apply border-none rounded-[.4rem] font-bold outline-0;
+    }
+
+    .button-main:hover {
+        @apply bg-gray border-gray;
+    }
+
+    .button-content {
+        @apply inline-flex items-center justify-center relative 
+        no-underline text-[inherit] border-[0px] rounded-none;
+    }
+
+    .button-base {
+        @apply bg-white border-white border-[1px] border-solid text-[#3f4b53];
+    }
+
+    .expand-icon {
+        @apply fill-[#3f4b53] !important;
+    }
+
+    .button-main .expand-icon {
+        @apply w-[1.6rem] h-[1.6rem];
+    }
+
+    .stretch-content {
+        @apply flex items-stretch content-stretch w-full box-border;
+    }
+
+    .overflow-text {
+        @apply overflow-hidden text-ellipsis whitespace-nowrap;
+    }
+
+    .srceen-basis-2 {
+        @apply basis-2/12 max-w-2/12 grow-0;
+    }
+
+    .srceen-basis-3 {
+        @apply basis-4/12 max-w-4/12 grow-0;
+    }
+}
+
+@layer components {
+    .top-header {
+        @apply bg-topRed;
+    }
+
+    .navbar-top {
+        @apply flex items-center h-[3.2rem] w-full;
+    }
+
+    .navbar-top:nth-child(n) {
+        @apply relative cursor-pointer;
+    }
+
+    .topnav-link {
+        @apply text-white font-bold text-sm leading-[1.6rem] tracking-normal;
+    }
+
+    .bottom-header {
+        @apply bg-red;
+    }
+
+    .bottom-nav {
+        @apply flex items-center h-[6.4rem] relative;
+    }
+
+    .brand-logo {
+        @apply basis-1/12 grow-0 max-w-1/12;
+    }
+
+    .menu-bar-2xl {
+        @apply basis-0 grow max-w-[100%];
+    }
+
+    .menu-btn {
+        @apply flex items-center justify-center rounded-[0.4rem] cursor-pointer px-[0.8rem] mr-[0.8rem];
+    }
+
+    .menu-btn:hover {
+        @apply bg-[#d52220];
+    }
+
+    .main-search {
+        @apply relative;
+    }
+
+    .search-body {
+        @apply flex items-stretch w-full rounded-[0.4rem] text-base overflow-hidden bg-white mr-[0.4rem];
+    }
+
+    .search-input {
+        @apply flex w-full;
+    }
+
+    .sendo-search {
+        @apply border-none outline-0 w-full text-base leading-[2.2rem] pl-[1.6rem] py-[0.8rem];
+    }
+
+    .search-options {
+        @apply flex items-center;
+    }
+
+    .options-list {
+        @apply bg-[#f2f3f4] border-none shadow-none text-[#3f4b53] font-bold outline-0 w-[20rem];
+    }
+
+    .shop-cart {
+        @apply basis-auto grow-0 max-w-[none] w-auto;
+    }
+
+    .btn-log {
+        @apply bg-white border-[1px] border-[#fff] rounded-[0.4rem];
+    }
+
+    .sidebar-css {
+        @apply bg-white rounded-[0.8rem] mr-[2.4rem] max-h-[90vh] min-h-[80vh] overflow-x-hidden overflow-y-auto sticky top-[8rem] w-[20.6rem];
+    }
+
+    .sidebar-css::-webkit-scrollbar {
+        @apply bg-[#878e94] rounded-[0.4rem] h-[10.6rem] w-[0.4rem];
+    }
+
+    .select-btn {
+        @apply items-center w-full rounded-[0.4rem] pl-[1.2rem] py-[0.4rem] pr-[0.8rem];
+    }
+    .categories-css {
+        @apply max-h-[5000vh] overflow-hidden;
+    }
+
+    .product-name {
+        @apply block;
+    }
+    .price-discout {
+        @apply text-[11px] text-[#b7bbbf] line-through leading-[1.2rem] tracking-normal;
+    }
+    .discount-percent {
+        @apply text-sm text-red leading-[1.6rem] tracking-normal;
+    }
+    .final-price {
+        @apply text-red text-[16px] font-bold tracking-normal leading-9;
+    }
+    .paylate {
+        @apply flex items-center text-[11px] text-[#3F4B53] bg-gray;
+    }
+    .final-rating {
+        @apply leading-[1.2rem] tracking-normal text-black;
+    }
+
+    .middle-footer {
+        @apply flex-col flex-wrap basis-1/4 grow-0 max-w-[25%];
+    }
+
+    .email-input {
+        @apply flex items-stretch rounded-[0.4rem] text-base overflow-hidden w-full;
+    }
+    .btn-register {
+        @apply inline-flex items-center justify-center rounded-[0.4rem] outline-0
+         w-full bg-red border-[1px] border-solid border-[#ee2624] text-white px-[1.6rem] py-[0.6rem];
+    }
+    .btn-gotop {
+        @apply h-[4rem] w-[4rem] rounded-[0.4rem] border-[0] bg-white shadow-[0_1px_3px_0_rgba(0,0,0,.2)] fixed;
+    }
+}
