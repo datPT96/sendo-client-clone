@@ -1,3 +1,4 @@
+import { ActionContext } from '@/contexts/ActionContext'
 import { Button, TextField } from '@mui/material'
 import React, { ChangeEvent } from 'react'
 
@@ -16,6 +17,7 @@ const LevelFilter = ({
     onLtpriceChange,
     onGtpriceChange,
 }: LevelFilterProp) => {
+
     return (
         <div className="stretch-content flex-col flex-wrap py-[0.8rem]">
             <div className="stretch-content">
@@ -69,11 +71,10 @@ const LevelFilter = ({
             </div>
             <button
                 className={`button-content button-base text-white font-bold hover:opacity-[0.8] mt-[0.8rem] px-[0.8rem] py-[0.4rem] rounded-[0.4rem]
-                ${
-                    gtprice || ltprice
+                ${gtprice || ltprice
                         ? 'bg-red border-[1px] border-solid border-red'
                         : 'bg-gray text-[#b7bbbf] border-gray cursor-not-allowed'
-                }`}
+                    }`}
                 disabled={gtprice || ltprice ? false : true}
                 onClick={onClick}
             >

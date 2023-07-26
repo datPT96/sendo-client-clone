@@ -18,9 +18,10 @@ interface Attribute_Data {
 
 interface DefaultProp {
     data: Attribute_Data | undefined
+    attribute_key: string
 }
 
-const DefaultTerm = ({data}: DefaultProp) => {
+const DefaultTerm = ({ data, attribute_key }: DefaultProp) => {
     const [open, setOpen] = useState(true)
 
     const handleClick = () => {
@@ -44,13 +45,14 @@ const DefaultTerm = ({data}: DefaultProp) => {
             } else {
                 newCheckedItem.push(value)
             }
+            console.log(newCheckedItem)
             setCheckedItem(newCheckedItem)
         },
         [checkedItem],
     )
 
     useEffect(() => {
-        addAction('location', checkedItem)
+        addAction(attribute_key, undefined, undefined, undefined, checkedItem)
     }, [checkedItem])
 
     return (

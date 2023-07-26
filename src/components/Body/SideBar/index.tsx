@@ -33,19 +33,19 @@ const Sidebar = () => {
             <div className="block">
                 <Category />
                 <Divider className="h-[1px]" />
-                <DefaultTerm data={shop_warehouse_city} />
+                <DefaultTerm data={shop_warehouse_city} attribute_key={'location'} />
                 <Divider className="h-[1px]" />
-                <DefaultTerm data={shipping_method} />
+                <DefaultTerm data={shipping_method} attribute_key={'shipMethods'} />
                 <Divider className="h-[1px]" />
-                <DefaultTerm data={shop_type} />
+                <DefaultTerm data={shop_type} attribute_key={'shopTypes'} />
                 <Divider className="h-[1px]" />
-                <Discounts data={GeneralTerm} />
+                <Discounts data={GeneralTerm} attribute_key={'promo'} />
                 <Divider className="h-[1px]" />
-                <LevelPrice data={levelPrice}/>
+                <LevelPrice data={levelPrice} />
                 <Divider className="h-[1px]" />
-                <Ratting data={level_ratting}/>
+                <Ratting data={level_ratting} />
                 <Divider className="h-[1px]" />
-                <DefaultTerm data={other_type} />
+                <DefaultTerm data={other_type} attribute_key={'other'} />
                 <Divider className="h-[1px]" />
             </div>
         </div>

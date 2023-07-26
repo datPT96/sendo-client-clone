@@ -1,17 +1,42 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Breadcrumb from './Breadcrumb'
 import Sidebar from './SideBar'
 import Contents from './Content'
-import { ProductContext } from '@/contexts/ProductContext'
 import { ActionContext } from '@/contexts/ActionContext'
+import productsApi from '@/api/productsApi'
+import { Product } from '@/reducers/ProductReducer'
 
 const Body = () => {
-    const { products, filterProduct } = useContext(ProductContext)
+    const [listData, setListData] = useState<Product[]>([])
+    const [params, setParams] = useState({
+        name: '',
+        shop_warehouse_city_id: '',
+        is_using_instant: '',
+        is_using_in_day: '',
+        is_using_standard: '',
+        is_senmall: '',
+        is_shipping_support: '',
+        is_shop_certificated: '',
+        is_shop_plus: '',
+        final_price: '',
+        max_final_price: '',
+        rating_percent: '',
+        has_video: ''
+    })
+
+    const [p, setPage] = useState(1)
+
     const { actions } = useContext(ActionContext)
-    // console.log(actions)
+
+    const getListProduct = async () => {
+        const list = await productsApi.filterByCondition({ ...actions, p, s: 20 })
+        setListData(list?.data)
+    }
+    console.log(actions)
+
     useEffect(() => {
-        filterProduct(actions)
+        getListProduct()
     }, [actions])
 
     return (
@@ -22,7 +47,7 @@ const Body = () => {
                     <div className="stretch-content min-h-[90vh]">
                         <Sidebar />
                         <div className="flex-1">
-                            <Contents productList={products} />
+                            <Contents productList={listData} />
                         </div>
                     </div>
                 </div>

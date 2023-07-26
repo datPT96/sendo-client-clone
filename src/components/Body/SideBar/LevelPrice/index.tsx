@@ -3,6 +3,7 @@ import React, { useState, useContext, ChangeEvent } from 'react'
 import LevelFilter from './LevelFilter'
 import PriceRangeList from './PriceRangeList'
 import { ProductContext } from '@/contexts/ProductContext'
+import { ActionContext } from '@/contexts/ActionContext'
 
 interface Attribute_Data {
     _id: string
@@ -16,13 +17,16 @@ interface DefaultProp {
     data: Attribute_Data | undefined
 }
 
-const LevelPrice = ({data}: DefaultProp) => {
+const LevelPrice = ({ data }: DefaultProp) => {
     const [open, setOpen] = useState(true)
 
     const [gtprice, setGtprice] = useState('')
     const [ltprice, setLtprice] = useState('')
 
     // const { filterByPrice } = useContext(ProductContext)
+
+    const { addAction } = useContext(ActionContext)
+
     const onGtpriceChange = (e: ChangeEvent<HTMLInputElement>) => {
         setGtprice(e.target.value)
     }
@@ -33,6 +37,7 @@ const LevelPrice = ({data}: DefaultProp) => {
 
     const onClickApply = () => {
         // filterByPrice(gtprice, ltprice)
+        addAction('levelPrice', undefined, Number(gtprice), Number(ltprice), undefined)
     }
     const handleClick = () => {
         setOpen(!open)

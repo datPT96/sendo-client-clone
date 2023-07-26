@@ -70,117 +70,120 @@ const SideBarSelect = ({ datas, onClick }: SideBarSelectType) => {
             <FormGroup className="stretch-content">
                 {!open
                     ? datas?.map((item: any, index: number) => {
-                          if (index > 3) {
-                              return null
-                          }
-                          return (
-                              <FormControlLabel
-                                  key={index}
-                                  control={
-                                      <Checkbox
-                                          value={item?.search_key}
-                                          icon={<IconBox />}
-                                          checkedIcon={<IconChecked />}
-                                          sx={{
-                                              '&.MuiButtonBase-root': {
-                                                  padding: 0,
-                                              },
-                                              '& .MuiSvgIcon-root': {
-                                                  fontSize: '24px',
-                                              },
-                                              color: '#6f787e',
-                                              '&.Mui-checked': {
-                                                  color: red[600],
-                                              },
-                                          }}
-                                          disableRipple
-                                          onChange={onCheck}
-                                      />
-                                  }
-                                  label={
-                                      <Typography
-                                          variant="caption"
-                                          fontSize={14}
-                                          noWrap={true}
-                                          align="center"
-                                          letterSpacing={0}
-                                          lineHeight={'1.8rem'}
-                                          sx={{
-                                              marginLeft: '0.8rem',
-                                              '&:hover': {
-                                                  fontWeight: '700',
-                                              },
-                                          }}
-                                      >
-                                          {item.option_name}
-                                      </Typography>
-                                  }
-                                  className="stretch-content select-btn"
-                                  sx={{
-                                      '&.MuiFormControlLabel-root': {
-                                          margin: 0,
-                                      },
-                                      '&:hover': {
-                                          backgroundColor: '#f2f3f4',
-                                          fontWeight: 'bold',
-                                      },
-                                  }}
-                              />
-                          )
-                      })
+                        if (index > 3) {
+                            return null
+                        }
+                        return (
+                            <FormControlLabel
+                                key={index}
+                                control={
+                                    <Checkbox
+                                        value={item?.search_key ? item?.search_key : item?.option_id}
+                                        icon={<IconBox />}
+                                        checkedIcon={<IconChecked />}
+                                        sx={{
+                                            '&.MuiButtonBase-root': {
+                                                padding: 0,
+                                            },
+                                            '& .MuiSvgIcon-root': {
+                                                fontSize: '24px',
+                                            },
+                                            color: '#6f787e',
+                                            '&.Mui-checked': {
+                                                color: red[600],
+                                            },
+                                        }}
+                                        disableRipple
+                                        onChange={onCheck}
+                                    />
+                                }
+                                label={
+                                    <Typography
+                                        variant="caption"
+                                        fontSize={14}
+                                        noWrap={true}
+                                        align="center"
+                                        letterSpacing={0}
+                                        lineHeight={'1.8rem'}
+                                        sx={{
+                                            marginLeft: '0.8rem',
+                                            '&:hover': {
+                                                fontWeight: '700',
+                                            },
+                                        }}
+                                    >
+                                        {item.option_name}
+                                    </Typography>
+                                }
+                                className="stretch-content select-btn"
+                                sx={{
+                                    '&.MuiFormControlLabel-root': {
+                                        margin: 0,
+                                    },
+                                    '&:hover': {
+                                        backgroundColor: '#f2f3f4',
+                                        fontWeight: 'bold',
+                                    },
+                                }}
+                            />
+                        )
+                    })
                     : datas?.map((item: any, index: number) => {
-                          return (
-                              <FormControlLabel
-                                  key={index}
-                                  control={
-                                      <Checkbox
-                                          value={item?.search_key}
-                                          sx={{
-                                              '&.MuiButtonBase-root': {
-                                                  padding: 0,
-                                              },
-                                              '& .MuiSvgIcon-root': {
-                                                  '& path': {
-                                                      d: 'path("M18.545 4C19.35 4 20 4.796 20 5.778v12.444c0 .982-.651 1.778-1.455 1.778H5.455C4.65 20 4 19.204 4 18.222V5.778C4 4.796 4.651 4 5.455 4h13.09zM18 6H6v12h12V6z")',
-                                                  },
-                                                  fontSize: 24,
-                                              },
-                                              color: '#6f787e',
-                                              '&.Mui-checked': {
-                                                  color: red[600],
-                                              },
-                                          }}
-                                          disableRipple
-                                          onChange={onCheck}
-                                      />
-                                  }
-                                  label={
-                                      <Typography
-                                          variant="caption"
-                                          fontSize={14}
-                                          noWrap={true}
-                                          align="center"
-                                          sx={{
-                                              marginLeft: '0.8rem',
-                                          }}
-                                      >
-                                          {item.option_name}
-                                      </Typography>
-                                  }
-                                  className="stretch-content select-btn"
-                                  sx={{
-                                      '&.MuiFormControlLabel-root': {
-                                          display: 'flex',
-                                          margin: 0,
-                                      },
-                                      '&:hover': {
-                                          backgroundColor: '#f2f3f4',
-                                          fontWeight: 'bold',
-                                      },
-                                  }}
-                              />
-                          )
-                      })}
+                        return (
+                            <FormControlLabel
+                                key={index}
+                                control={
+                                    <Checkbox
+                                        value={item?.search_key ? item?.search_key : item?.option_id}
+                                        icon={<IconBox />}
+                                        checkedIcon={<IconChecked />}
+                                        sx={{
+                                            '&.MuiButtonBase-root': {
+                                                padding: 0,
+                                            },
+                                            '& .MuiSvgIcon-root': {
+                                                fontSize: '24px',
+                                            },
+                                            color: '#6f787e',
+                                            '&.Mui-checked': {
+                                                color: red[600],
+                                            },
+                                        }}
+                                        disableRipple
+                                        onChange={onCheck}
+                                    />
+                                }
+                                label={
+                                    <Typography
+                                        variant="caption"
+                                        fontSize={14}
+                                        noWrap={true}
+                                        align="center"
+                                        letterSpacing={0}
+                                        lineHeight={'1.8rem'}
+                                        sx={{
+                                            marginLeft: '0.8rem',
+                                            '&:hover': {
+                                                fontWeight: '700',
+                                            },
+                                        }}
+                                    >
+                                        {item.option_name}
+                                    </Typography>
+                                }
+                                className="stretch-content select-btn"
+                                sx={{
+                                    '&.MuiFormControlLabel-root': {
+                                        margin: 0,
+                                    },
+                                    '&:hover': {
+                                        backgroundColor: '#f2f3f4',
+                                        fontWeight: 'bold',
+                                    },
+                                }}
+                            />
+                        )
+                    })}
                 {datas?.length > 4 && (
                     <ExpandMoreOrLess isOpen={open} onClick={handleClick} />
                 )}

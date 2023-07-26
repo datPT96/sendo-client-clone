@@ -2,17 +2,19 @@ import React, { useContext, useState, ChangeEvent } from 'react'
 
 import { ProductContext } from '@/contexts/ProductContext'
 import { Link } from 'react-router-dom'
+import { ActionContext } from '@/contexts/ActionContext'
 
 const BottomNavbar = () => {
-    const [key, setKey] = useState<string>('')
+    const [key, setKey] = useState<string>()
     // const { findProduct } = useContext(ProductContext)
+    const { addAction } = useContext(ActionContext)
 
     const onInput = (e: ChangeEvent<HTMLInputElement>) => {
         setKey(e?.currentTarget?.value)
     }
 
     const onClickSearch = () => {
-        // findProduct(key)
+        addAction('search_key', key)
     }
 
     return (

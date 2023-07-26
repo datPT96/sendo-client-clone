@@ -12,8 +12,8 @@ interface ProductContextProps {
 
 interface ProductContextDefault {
     products: ProductState
-    filterProduct: (action: Action) => void
-    // findProduct: (key: string) => void
+    filterProduct: (action: Action) => Promise<void>
+    findProduct: (key: string) => void
     // filterByStar: (key: string) => void
     // filterByPrice: (min?: string | number, max?: string | number) => void
 }
@@ -29,8 +29,8 @@ const productsDefault: ProductState = []
 
 export const ProductContext = createContext<ProductContextDefault>({
     products: productsDefault,
-    filterProduct: () => {},
-    // findProduct: () => {},
+    filterProduct: () => Promise.resolve(void 0),
+    findProduct: () => { },
     // filterByStar: () => {},
     // filterByPrice: () => {},
 })
@@ -38,17 +38,16 @@ export const ProductContext = createContext<ProductContextDefault>({
 const ProductContextProvider = ({ children }: ProductContextProps) => {
     const [products, dispatch] = useReducer(filterReducer, productsDefault)
 
-    // const findProduct = (key: string) => {
-    //     let productFind = productsData.filter((product) =>
-    //         product?.name.includes(key),
-    //     )
-    //     console.log(key)
-
-    //     dispatch({
-    //         type: GET_SEARCHED_PRODUCT,
-    //         payload: [...productFind],
-    //     })
-    // }
+    const findProduct = (key: string) => {
+        // let productFind = productsApi.findByName(key)
+        // console.log(productFind)
+        // console.log(key)
+        return key
+        // dispatch({
+        //     type: GET_SEARCHED_PRODUCT,
+        //     payload: [...productFind?.data],
+        // })
+    }
 
     // const filterByPrice = (min?: string | number, max?: string | number) => {
     //     let productList: ProductState = []
@@ -112,19 +111,23 @@ const ProductContextProvider = ({ children }: ProductContextProps) => {
     // }
 
     const filterProduct = async (actions: Action) => {
-        let productList = await productsApi.getAllProduct()
+        const res = await productsApi.filterByCondition()
+        let productList = [...res?.data]
 
+        // let searchKey = actions.name
         // let locations = actions.location
-        // if (locations.length > 0) {
-        //     let filtered = []
-        //     let tempList = []
-        //     locations.forEach((item) => {
-        //         tempList = productList.filter((product) => {
-        //             return product.item?.shop_warehouse_city_id === Number(item)
-        //         })
-        //         filtered = [...filtered, ...tempList]
-        //     })
-        //     productList = [...filtered]
+        // if (searchKey) {
+        //     const filter = await productsApi.filterByCondition(searchKey)
+        //     productList = [...filter?.data]
+        // }
+
+        // if (locations && locations.length > 0) {
+        //     const stringParams = locations.join(',')
+        //     console.log(stringParams)
+        //     // const filtered = await productsApi.filterByCondition(searchKey, stringParams)
+        //     // if (filtered) {
+        //     //     productList = [...filtered.data]
+        //     // }
         // }
 
         // if (actions.shipMethods.length > 0) {
@@ -241,18 +244,18 @@ const ProductContextProvider = ({ children }: ProductContextProps) => {
         // }
 
         // productList = [...filteredProducts]
-        console.log('filteredProducts', productList)
+        // console.log('filteredProducts', productList)
 
         dispatch({
             type: GET_FILTER_PRODUCT,
-            payload: [...productList?.data],
+            payload: [...productList],
         })
     }
 
     const productsContextData = {
         products,
         filterProduct,
-        // findProduct,
+        findProduct,
         // filterByStar,
         // filterByPrice,
     }

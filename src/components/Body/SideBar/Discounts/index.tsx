@@ -13,9 +13,10 @@ import ExpandMoreOrLess from '../ExpandMoreOrLess'
 
 interface DiscountsProp {
     data: any
+    attribute_key: string
 }
 
-const Discounts = ({data}: DiscountsProp) => {
+const Discounts = ({ data, attribute_key }: DiscountsProp) => {
 
     // console.log(data)
     const [open, setOpen] = useState(true)
@@ -52,7 +53,7 @@ const Discounts = ({data}: DiscountsProp) => {
     )
 
     useEffect(() => {
-        addAction('promo', checkedItem)
+        addAction(attribute_key, undefined, undefined, undefined, checkedItem)
     }, [checkedItem])
 
     return (
@@ -83,29 +84,29 @@ const Discounts = ({data}: DiscountsProp) => {
             </div>
             {open && (
                 !showMore ? data.map((item: any, index: number) => {
-                    if(index > 3) {
+                    if (index > 3) {
                         return null
                     }
-                    if(item.attribute_term === "GeneralTerm") {
-                        return(
-                            <PromotionsSelect datas={item.attribute_value} onClick={handleCheck} key={item.attribute_key}/>
+                    if (item.attribute_term === "GeneralTerm") {
+                        return (
+                            <PromotionsSelect datas={item.attribute_value} onClick={handleCheck} key={item.attribute_key} />
                         )
                     }
                     return null
                 })
-                : 
-                data.map((item: any) => {
-                    if(item.attribute_term === "GeneralTerm") {
-                        return(
-                            <PromotionsSelect datas={item.attribute_value} onClick={handleCheck} key={item.attribute_key}/>
-                        )
-                    }
-                    return null
-                })
+                    :
+                    data.map((item: any) => {
+                        if (item.attribute_term === "GeneralTerm") {
+                            return (
+                                <PromotionsSelect datas={item.attribute_value} onClick={handleCheck} key={item.attribute_key} />
+                            )
+                        }
+                        return null
+                    })
             )}
             {data.length > 4 && (
-                    <ExpandMoreOrLess isOpen={showMore} onClick={hanldeShow} />
-                )}
+                <ExpandMoreOrLess isOpen={showMore} onClick={hanldeShow} />
+            )}
         </div>
     )
 }
