@@ -67,11 +67,10 @@ const MultiLevelMenus = ({ datas }: MultiLevelMenusType) => {
                     className={`stretch-content items-center hover:bg-gray hover:font-bold px-[0.8rem] py-[0.4rem] rounded-[0.4rem]`}
                 >
                     <button
-                        className={`${
-                            hasSubCategory
-                                ? 'p-[0.5rem] button-main button-base button-content bg-white hover:bg-gray rounded-[0.4rem]'
-                                : 'ml-[2.4rem]'
-                        }`}
+                        className={`${hasSubCategory
+                            ? 'p-[0.5rem] button-main button-base button-content bg-white hover:bg-gray rounded-[0.4rem]'
+                            : 'ml-[2.4rem]'
+                            }`}
                         onClick={() => handleExpandBtn(label)}
                     >
                         {hasSubCategory && (
@@ -81,11 +80,10 @@ const MultiLevelMenus = ({ datas }: MultiLevelMenusType) => {
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"
                                 version="1.1"
-                                className={`w-[1.2rem] h-[1.2rem] ${
-                                    activeMenu.includes(label)
-                                        ? ''
-                                        : 'rotate-180'
-                                }`}
+                                className={`w-[1.2rem] h-[1.2rem] ${activeMenu.includes(label)
+                                    ? ''
+                                    : 'rotate-180'
+                                    }`}
                             >
                                 <path
                                     fill="#6F787E"
@@ -96,13 +94,11 @@ const MultiLevelMenus = ({ datas }: MultiLevelMenusType) => {
                         )}
                     </button>
                     <span
-                        className={`truncate ml-[0.4rem] flex-1 ${
-                            hasSubCategory && isSelected ? 'font-bold' : ''
-                        } ${
-                            !hasSubCategory && isSelected
+                        className={`truncate ml-[0.4rem] flex-1 ${hasSubCategory && isSelected ? 'font-bold' : ''
+                            } ${!hasSubCategory && isSelected
                                 ? 'text-red font-bold'
                                 : ''
-                        }`}
+                            }`}
                     >
                         {data.name}
                     </span>
@@ -134,37 +130,37 @@ const MultiLevelMenus = ({ datas }: MultiLevelMenusType) => {
             <ul className="ml-[1.2rem]">
                 {open
                     ? data?.map((menu: Categories, index) => {
-                          const labelCategory = `cate-subCate-${level}-${index}-${menuIndex}`
-                          return (
-                              <ListMenu
-                                  key={menu.id}
-                                  level={level}
-                                  data={menu}
-                                  hasSubCategory={menu.sub_category && menu.sub_category?.length > 0}
-                                  label={labelCategory}
-                                  index={index}
-                                  isSelected={menu.is_selected}
-                              />
-                          )
-                      })
+                        const labelCategory = `cate-subCate-${level}-${index}-${menuIndex}`
+                        return (
+                            <ListMenu
+                                key={menu.id}
+                                level={level}
+                                data={menu}
+                                hasSubCategory={menu.sub_category && menu.sub_category?.length > 0}
+                                label={labelCategory}
+                                index={index}
+                                isSelected={menu.is_selected}
+                            />
+                        )
+                    })
                     : data?.map((menu: Categories, index) => {
-                          const labelCategory = `cate-subCate-${level}-${index}-${menuIndex}`
+                        const labelCategory = `cate-subCate-${level}-${index}-${menuIndex}`
 
-                          if (index >= 6) {
-                              return null
-                          }
-                          return (
-                              <ListMenu
-                                  key={menu.id}
-                                  level={level}
-                                  data={menu}
-                                  hasSubCategory={menu.sub_category && menu.sub_category?.length > 0}
-                                  label={labelCategory}
-                                  index={index}
-                                  isSelected={menu.is_selected}
-                              />
-                          )
-                      })}
+                        if (index >= 6) {
+                            return null
+                        }
+                        return (
+                            <ListMenu
+                                key={menu.id}
+                                level={level}
+                                data={menu}
+                                hasSubCategory={menu.sub_category && menu.sub_category?.length > 0}
+                                label={labelCategory}
+                                index={index}
+                                isSelected={menu.is_selected}
+                            />
+                        )
+                    })}
             </ul>
         )
     }
@@ -183,7 +179,7 @@ const MultiLevelMenus = ({ datas }: MultiLevelMenusType) => {
                             hasSubCategory={item.sub_category && item.sub_category?.length > 0}
                             label={label}
                             index={index}
-                            isSelected={item.is_selected}
+                            isSelected={item?.is_selected && item.is_selected}
                         />
                     )
                 })}

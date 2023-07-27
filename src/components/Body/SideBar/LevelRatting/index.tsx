@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import RattingRangeList from './RattingRangeList'
 
 interface Attribute_Data {
@@ -13,12 +13,13 @@ interface DefaultProp {
     data: Attribute_Data | undefined
 }
 
-const Ratting = ({data}: DefaultProp) => {
+const Ratting = ({ data }: DefaultProp) => {
     const [open, setOpen] = useState(true)
 
     const handleClick = () => {
         setOpen(!open)
     }
+
     return (
         <div className="stretch-content flex-col flex-wrap px-[0.4rem] py-[1.2rem]">
             <div className="stretch-content items-center justify-between">

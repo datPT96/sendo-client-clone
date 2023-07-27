@@ -1,24 +1,16 @@
 import React, {
     useState,
-    ChangeEvent,
-    useCallback,
-    useEffect,
-    useContext,
 } from 'react'
 
-import { discounts } from '@/data/filterList'
-import { ActionContext } from '@/contexts/ActionContext'
 import PromotionsSelect from './PromotionsSelect'
 import ExpandMoreOrLess from '../ExpandMoreOrLess'
 
 interface DiscountsProp {
     data: any
-    attribute_key: string
 }
 
-const Discounts = ({ data, attribute_key }: DiscountsProp) => {
+const Discounts = ({ data }: DiscountsProp) => {
 
-    // console.log(data)
     const [open, setOpen] = useState(true)
     const [showMore, setShowMore] = useState(false)
 
@@ -30,35 +22,9 @@ const Discounts = ({ data, attribute_key }: DiscountsProp) => {
         setShowMore(!showMore)
     }
 
-    const { actions, addAction } = useContext(ActionContext)
-
-    const [checkedItem, setCheckedItem] = useState<string[]>([])
-
-    const handleCheck = useCallback(
-        (e: ChangeEvent<HTMLInputElement>) => {
-            let newCheckedItem: string[] = [...checkedItem]
-            let value = e.target.value
-            console.log(value)
-            if (newCheckedItem.includes(value)) {
-                var index = newCheckedItem.indexOf(value)
-                if (index > -1) {
-                    newCheckedItem.splice(index, 1)
-                }
-            } else {
-                newCheckedItem.push(value)
-            }
-            setCheckedItem(newCheckedItem)
-        },
-        [checkedItem],
-    )
-
-    useEffect(() => {
-        addAction(attribute_key, undefined, undefined, undefined, checkedItem)
-    }, [checkedItem])
-
     return (
         <div className="stretch-content flex-col flex-wrap px-[0.4rem] py-[1.2rem]">
-            <div className="stretch-content items-center justify-between">
+            <div className="stretch-content items-center justify-between mb-[0.8rem]">
                 <span className="ml-[1.2rem] tracking-[0] text-base font-bold leading-[1.8rem]">
                     Ưu đãi
                 </span>
@@ -89,7 +55,7 @@ const Discounts = ({ data, attribute_key }: DiscountsProp) => {
                     }
                     if (item.attribute_term === "GeneralTerm") {
                         return (
-                            <PromotionsSelect datas={item.attribute_value} onClick={handleCheck} key={item.attribute_key} />
+                            <PromotionsSelect datas={item.attribute_value} attribute_key={item.attribute_key} key={item.attribute_key} />
                         )
                     }
                     return null
@@ -98,7 +64,7 @@ const Discounts = ({ data, attribute_key }: DiscountsProp) => {
                     data.map((item: any) => {
                         if (item.attribute_term === "GeneralTerm") {
                             return (
-                                <PromotionsSelect datas={item.attribute_value} onClick={handleCheck} key={item.attribute_key} />
+                                <PromotionsSelect datas={item.attribute_value} attribute_key={item.attribute_key} key={item.attribute_key} />
                             )
                         }
                         return null

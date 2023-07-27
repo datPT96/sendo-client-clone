@@ -12,7 +12,7 @@ interface ProductContextProps {
 
 interface ProductContextDefault {
     products: ProductState
-    filterProduct: (action: Action) => Promise<void>
+    filterProduct: (action: Action, p: number, s: number) => Promise<void>
     findProduct: (key: string) => void
     // filterByStar: (key: string) => void
     // filterByPrice: (min?: string | number, max?: string | number) => void
@@ -110,10 +110,10 @@ const ProductContextProvider = ({ children }: ProductContextProps) => {
     //     })
     // }
 
-    const filterProduct = async (actions: Action) => {
-        const res = await productsApi.filterByCondition()
-        let productList = [...res?.data]
-
+    const filterProduct = async (actions: Action, p: number, s: number) => {
+        const res = await productsApi.filterByCondition({ ...actions, p, s: 20 })
+        let productList = [...res?.data.datas]
+        console.log(actions)
         // let searchKey = actions.name
         // let locations = actions.location
         // if (searchKey) {

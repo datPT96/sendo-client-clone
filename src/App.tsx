@@ -9,29 +9,14 @@ import { GoToTop } from './components/FloatButton'
 import Chat from './components/FloatButton/Chat'
 
 function App() {
-    const [showButton, setShowButton] = useState(false)
 
-    const handleScroll = () => {
-        if (window.scrollY > window.innerHeight) {
-            setShowButton(true)
-        } else {
-            setShowButton(false)
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
     return (
         <div className="App">
             <ProductContextProvider>
                 <ActionContextProvider>
                     <Header />
                     <Body />
-                    {showButton && <GoToTop />}
+                    <GoToTop />
                     <Chat />
                     <Footer />
                 </ActionContextProvider>

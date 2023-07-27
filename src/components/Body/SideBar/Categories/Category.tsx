@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import MultiLevelMenus from './MultiLevelMenus'
-import categoriesList from '@/data/categoriesList'
 import categoryApi from '@/api/categoryApi'
 
 const Category = () => {
@@ -48,9 +47,8 @@ const Category = () => {
                 </button>
             </div>
             <div
-                className={`stretch-content categories-css flex-col ${
-                    open ? '' : 'hidden'
-                }`}
+                className={`stretch-content categories-css flex-col ${open ? '' : 'hidden'
+                    }`}
             >
                 <Link to={'/'} className="text-blue px-[1.2rem] py-[0.8rem]">
                     Về trang tất cả danh mục

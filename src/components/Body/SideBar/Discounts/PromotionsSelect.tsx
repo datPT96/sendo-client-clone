@@ -1,4 +1,4 @@
-import ActionContextProvider, { ActionContext } from '@/contexts/ActionContext'
+import { ActionContext } from '@/contexts/ActionContext'
 import {
     FormControlLabel,
     FormGroup,
@@ -7,14 +7,12 @@ import {
 } from '@mui/material'
 import { red } from '@mui/material/colors'
 // import { styled } from '@mui/material/styles'
-import React, { useState, ChangeEvent } from 'react'
-import ExpandMoreOrLess from '../ExpandMoreOrLess'
-import { data } from '@/data/products'
+import React, { useState, useEffect, useCallback, useContext, ChangeEvent } from 'react'
 
 
 interface SideBarSelectType {
     datas: any
-    onClick: (e: ChangeEvent<HTMLInputElement>) => void
+    attribute_key: string
 }
 
 const IconBox = () => {
@@ -57,75 +55,122 @@ const IconChecked = () => {
     )
 }
 
-const PromotionsSelect = ({ datas, onClick }: SideBarSelectType) => {
+const PromotionsSelect = ({ datas, attribute_key }: SideBarSelectType) => {
     // console.log(datas)
     // const [open, setOpen] = useState(false)
+    // const [checkValue, setCheckValue] = useState({})
+    const [checkedItem, setCheckedItem] = useState<string[]>([])
 
-    const onCheck = onClick
+    const { filterByPromo } = useContext(ActionContext)
+
+    // const onCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setCheckValue({
+    //         ...checkValue,
+    //         [attribute_key]: e.target.value ?? null
+    //     })
+    // }
+    // console.log(attribute_key)
+
+    const handleCheck = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            let newCheckedItem: string[] = [...checkedItem]
+            let value = e.target.value
+            console.log(value)
+            if (newCheckedItem.includes(value)) {
+                var index = newCheckedItem.indexOf(value)
+                if (index > -1) {
+                    newCheckedItem.splice(index, 1)
+                }
+            } else {
+                newCheckedItem.push(value)
+            }
+            setCheckedItem(newCheckedItem)
+            // setCheckValue({
+            //     ...{
+            //         ...checkedItem.map(item => {
+            //             return (
+            //                 {
+            //                     [attribute_key]: Number(item)
+            //                 }
+            //             )
+            //         })
+            //     }
+
+            // })
+        },
+        [checkedItem],
+    )
     // const handleClick = () => {
     //     setOpen(!open)
     // }
 
+    // console.log(checkValue)
+
+    useEffect(() => {
+        filterByPromo(attribute_key, checkedItem)
+    }, [checkedItem])
+
+
     return (
-        <div className="w-full mt-[0.8rem]">
+        <div className="w-full">
             <FormGroup className="stretch-content">
                 {datas.map((item: any, index: number) => {
-                          
-                          return (
-                              <FormControlLabel
-                                  key={index}
-                                  control={
-                                      <Checkbox
-                                          value={item?.search_key}
-                                          icon={<IconBox />}
-                                          checkedIcon={<IconChecked />}
-                                          sx={{
-                                              '&.MuiButtonBase-root': {
-                                                  padding: 0,
-                                              },
-                                              '& .MuiSvgIcon-root': {
-                                                  fontSize: '24px',
-                                              },
-                                              color: '#6f787e',
-                                              '&.Mui-checked': {
-                                                  color: red[600],
-                                              },
-                                          }}
-                                          disableRipple
-                                          onChange={onCheck}
-                                      />
-                                  }
-                                  label={
-                                      <Typography
-                                          variant="caption"
-                                          fontSize={14}
-                                          noWrap={true}
-                                          align="center"
-                                          letterSpacing={0}
-                                          lineHeight={'1.8rem'}
-                                          sx={{
-                                              marginLeft: '0.8rem',
-                                              '&:hover': {
-                                                  fontWeight: '700',
-                                              },
-                                          }}
-                                      >
-                                          {item.label}
-                                      </Typography>
-                                  }
-                                  className="stretch-content select-btn"
-                                  sx={{
-                                      '&.MuiFormControlLabel-root': {
-                                          margin: 0,
-                                      },
-                                      '&:hover': {
-                                          backgroundColor: '#f2f3f4',
-                                          fontWeight: 'bold',
-                                      },
-                                  }}
-                              />
-                          )
-                      })}
+
+                    return (
+                        <FormControlLabel
+                            key={index}
+                            control={
+                                <Checkbox
+                                    value={item?.value}
+                                    icon={<IconBox />}
+                                    checkedIcon={<IconChecked />}
+                                    sx={{
+                                        '&.MuiButtonBase-root': {
+                                            padding: 0,
+                                        },
+                                        '& .MuiSvgIcon-root': {
+                                            fontSize: '24px',
+                                        },
+                                        color: '#6f787e',
+                                        '&.Mui-checked': {
+                                            color: red[600],
+                                        },
+                                    }}
+                                    disableRipple
+                                    onChange={handleCheck}
+                                />
+                            }
+                            label={
+                                <Typography
+                                    variant="caption"
+                                    fontSize={14}
+                                    noWrap={true}
+                                    align="center"
+                                    letterSpacing={0}
+                                    lineHeight={'1.8rem'}
+                                    sx={{
+                                        marginLeft: '0.8rem',
+                                        '&:hover': {
+                                            fontWeight: '700',
+                                        },
+                                    }}
+                                >
+                                    {item.label}
+                                </Typography>
+                            }
+                            className="stretch-content select-btn"
+                            sx={{
+                                '&.MuiFormControlLabel-root': {
+                                    margin: 0,
+                                },
+                                '&:hover': {
+                                    backgroundColor: '#f2f3f4',
+                                    fontWeight: 'bold',
+                                },
+                            }}
+                        />
+                    )
+                })}
             </FormGroup>
         </div>
     )

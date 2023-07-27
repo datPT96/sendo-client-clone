@@ -24,6 +24,7 @@ const Sidebar = () => {
     const level_ratting = filterCategories.find((item: any) => item.attribute_key === "levelRating")
     const other_type = filterCategories.find((item: any) => item.attribute_key === "other_type")
 
+
     useEffect(() => {
         getListFilter()
     }, [])
@@ -39,7 +40,7 @@ const Sidebar = () => {
                 <Divider className="h-[1px]" />
                 <DefaultTerm data={shop_type} attribute_key={'shopTypes'} />
                 <Divider className="h-[1px]" />
-                <Discounts data={GeneralTerm} attribute_key={'promo'} />
+                <Discounts data={GeneralTerm} />
                 <Divider className="h-[1px]" />
                 <LevelPrice data={levelPrice} />
                 <Divider className="h-[1px]" />

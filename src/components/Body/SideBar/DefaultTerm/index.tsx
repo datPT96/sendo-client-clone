@@ -6,7 +6,7 @@ import React, {
     useEffect,
 } from 'react'
 import SideBarSelect from '../SideBarSelect'
-import { Action, ActionContext } from '@/contexts/ActionContext'
+import { ActionContext } from '@/contexts/ActionContext'
 
 interface Attribute_Data {
     _id: string
@@ -28,7 +28,7 @@ const DefaultTerm = ({ data, attribute_key }: DefaultProp) => {
         setOpen(!open)
     }
 
-    const { actions, addAction } = useContext(ActionContext)
+    const { filterDefault } = useContext(ActionContext)
 
     const [checkedItem, setCheckedItem] = useState<string[]>([])
 
@@ -52,7 +52,7 @@ const DefaultTerm = ({ data, attribute_key }: DefaultProp) => {
     )
 
     useEffect(() => {
-        addAction(attribute_key, undefined, undefined, undefined, checkedItem)
+        filterDefault(attribute_key, checkedItem)
     }, [checkedItem])
 
     return (

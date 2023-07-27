@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useLayoutEffect } from 'react'
 
 import Breadcrumb from './Breadcrumb'
 import Sidebar from './SideBar'
@@ -6,38 +6,63 @@ import Contents from './Content'
 import { ActionContext } from '@/contexts/ActionContext'
 import productsApi from '@/api/productsApi'
 import { Product } from '@/reducers/ProductReducer'
+// import { ProductContext } from '@/contexts/ProductContext'
+
 
 const Body = () => {
     const [listData, setListData] = useState<Product[]>([])
-    const [params, setParams] = useState({
-        name: '',
-        shop_warehouse_city_id: '',
-        is_using_instant: '',
-        is_using_in_day: '',
-        is_using_standard: '',
-        is_senmall: '',
-        is_shipping_support: '',
-        is_shop_certificated: '',
-        is_shop_plus: '',
-        final_price: '',
-        max_final_price: '',
-        rating_percent: '',
-        has_video: ''
-    })
-
     const [p, setPage] = useState(1)
+    const [totalPage, setTotalPage] = useState()
+    const [loadPage, setLoadPage] = useState(true)
 
     const { actions } = useContext(ActionContext)
+    // const { products, filterProduct } = useContext(ProductContext)
 
     const getListProduct = async () => {
         const list = await productsApi.filterByCondition({ ...actions, p, s: 20 })
-        setListData(list?.data)
+        setTotalPage(list?.data.total_page)
+        p === 1 ? setListData(list?.data.datas) :
+            setListData((prev) => ([...prev, ...list?.data?.datas]))
     }
-    console.log(actions)
+
+    const getMorePage = () => {
+        setPage((prev) => prev + 1)
+        setLoadPage(true)
+    }
+
+    useLayoutEffect(() => {
+        const onScroll = () => {
+            if (window.scrollY >= window.screen.availHeight * 0.6) {
+                if (loadPage && p !== totalPage) {
+                    getMorePage()
+                    setLoadPage(false)
+                }
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true })
+        return () => { window.removeEventListener('scroll', onScroll) }
+    }, [p, totalPage, loadPage])
+
+    useLayoutEffect(() => {
+        const onScroll = () => {
+            if (window.scrollY === 0) {
+                setPage(1)
+                setLoadPage(true)
+            }
+        }
+        window.scrollTo({
+            top: 0
+        })
+
+        window.addEventListener('scroll', onScroll, { passive: true })
+        return () => { window.removeEventListener('scroll', onScroll) }
+    }, [actions])
 
     useEffect(() => {
         getListProduct()
-    }, [actions])
+        // filterProduct(actions, p, 20)
+    }, [actions, p])
 
     return (
         <main className="relative">
@@ -47,7 +72,7 @@ const Body = () => {
                     <div className="stretch-content min-h-[90vh]">
                         <Sidebar />
                         <div className="flex-1">
-                            <Contents productList={listData} />
+                            <Contents productList={listData} getMorePage={getMorePage} page={p} totalPage={totalPage} />
                         </div>
                     </div>
                 </div>

@@ -20,12 +20,12 @@ interface DefaultProp {
 const LevelPrice = ({ data }: DefaultProp) => {
     const [open, setOpen] = useState(true)
 
-    const [gtprice, setGtprice] = useState('')
-    const [ltprice, setLtprice] = useState('')
+    const [gtprice, setGtprice] = useState<string | null>('')
+    const [ltprice, setLtprice] = useState<string | null>('')
 
     // const { filterByPrice } = useContext(ProductContext)
 
-    const { addAction } = useContext(ActionContext)
+    const { filterLevelPrice } = useContext(ActionContext)
 
     const onGtpriceChange = (e: ChangeEvent<HTMLInputElement>) => {
         setGtprice(e.target.value)
@@ -37,11 +37,12 @@ const LevelPrice = ({ data }: DefaultProp) => {
 
     const onClickApply = () => {
         // filterByPrice(gtprice, ltprice)
-        addAction('levelPrice', undefined, Number(gtprice), Number(ltprice), undefined)
+        filterLevelPrice(Number(gtprice), Number(ltprice))
     }
     const handleClick = () => {
         setOpen(!open)
     }
+
     return (
         <div className="stretch-content flex-col flex-wrap px-[0.4rem] py-[1.2rem]">
             <div className="stretch-content items-center justify-between">
@@ -79,6 +80,8 @@ const LevelPrice = ({ data }: DefaultProp) => {
                     />
                     <PriceRangeList
                         datas={data?.attribute_value}
+                        gtprice={gtprice ?? ''}
+                        ltprice={ltprice ?? ''}
                         setGtprice={setGtprice}
                         setLtprice={setLtprice}
                     />

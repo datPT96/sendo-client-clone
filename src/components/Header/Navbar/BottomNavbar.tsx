@@ -1,27 +1,26 @@
 import React, { useContext, useState, ChangeEvent } from 'react'
 
-import { ProductContext } from '@/contexts/ProductContext'
 import { Link } from 'react-router-dom'
 import { ActionContext } from '@/contexts/ActionContext'
 
 const BottomNavbar = () => {
     const [key, setKey] = useState<string>()
     // const { findProduct } = useContext(ProductContext)
-    const { addAction } = useContext(ActionContext)
+    const { searchName } = useContext(ActionContext)
 
     const onInput = (e: ChangeEvent<HTMLInputElement>) => {
         setKey(e?.currentTarget?.value)
     }
 
     const onClickSearch = () => {
-        addAction('search_key', key)
+        searchName(key)
     }
 
     return (
         <div className="container bottom-nav px-[1.6rem] lg:px-[2.4rem]">
             <div className="brand-logo">
                 <div className="flex items-center">
-                    <Link to="/" className="block w-full">
+                    <a href="/" className="block w-full">
                         <svg
                             viewBox="0 0 87 48"
                             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +31,7 @@ const BottomNavbar = () => {
                                 fill="#fff"
                             ></path>
                         </svg>
-                    </Link>
+                    </a>
                 </div>
             </div>
             <div className="2xl:menu-bar-2xl stretch-content items-center">

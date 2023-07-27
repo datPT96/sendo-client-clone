@@ -3,8 +3,8 @@ import { Button, TextField } from '@mui/material'
 import React, { ChangeEvent } from 'react'
 
 interface LevelFilterProp {
-    gtprice?: string
-    ltprice?: string
+    gtprice?: string | null
+    ltprice?: string | null
     onClick: () => void
     onLtpriceChange: (e: ChangeEvent<HTMLInputElement>) => void
     onGtpriceChange: (e: ChangeEvent<HTMLInputElement>) => void
@@ -30,8 +30,8 @@ const LevelFilter = ({
                             <input
                                 type="number"
                                 className="w-full leading-[1.4rem] text-base p-[0.8rem] border-none"
-                                value={gtprice}
-                                onInput={onGtpriceChange}
+                                value={ltprice ?? ''}
+                                onInput={onLtpriceChange}
                             />
                         </div>
                     </div>
@@ -62,8 +62,8 @@ const LevelFilter = ({
                             <input
                                 type="number"
                                 className="w-full leading-[1.4rem] text-base p-[0.8rem] border-none"
-                                value={ltprice}
-                                onInput={onLtpriceChange}
+                                value={gtprice ?? ''}
+                                onInput={onGtpriceChange}
                             />
                         </div>
                     </div>

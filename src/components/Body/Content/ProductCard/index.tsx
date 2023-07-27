@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     Card,
@@ -56,14 +56,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 }))
 
 const ProductCard = ({ product }: ProductCardProp) => {
-    let percent = 0
-    let progressbar = false
-    if (product?.quantity && product?.remaining) {
-        progressbar = true
-        percent =
-            (product?.quantity - product?.remaining * 100) /
-            product?.quantity
-    }
+
     return (
         <CardWrapper>
             <CardMedia component={'img'} image={product?.thumbnail_url} />
@@ -126,12 +119,12 @@ const ProductCard = ({ product }: ProductCardProp) => {
                 </div>
                 {
                     <Box
-                        className={`${progressbar ? 'visible' : 'invisible'}`}
+                        className={`${(product.quantity && product.remaining) ? 'visible' : 'invisible'} ${product.quantity} ${product.remaining}`}
                         sx={{ position: 'relative' }}
                     >
                         <BorderLinearProgress
                             variant="determinate"
-                            value={percent}
+                            value={(product.quantity && product.remaining) && (product.quantity - product.remaining * 100) / product.quantity}
                         />
                         <Box
                             sx={{
